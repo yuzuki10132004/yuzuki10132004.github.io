@@ -60,31 +60,6 @@
   .tile.preset svg{width:24px;height:24px}
   .tile.preset .label{font-size:13.5px}
   .tile.preset .check{top:8px;right:8px;width:17px;height:17px;font-size:9px}
-  /* ---- dock ---- */
-  .dock{margin-top:auto;padding-top:30px}
-  .dockbar{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(4,1fr);padding:12px 6px 9px}
-  .dockbar a{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10px;font-weight:500;color:var(--sub);padding:2px 0;border-radius:14px}
-  .dockbar a:active{background:var(--well)}
-  .dockbar .dic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--well);color:var(--text)}
-  .dockbar .dic svg{width:21px;height:21px}
-  .dockbar .dic.blue{background:var(--blue);color:#fff}
-  .dockbar .dic.dark{background:#1c1c1e;color:#fff}
-  @media (prefers-color-scheme: dark){ .dockbar .dic.dark{background:#f5f5f7;color:#111} }
-  .dockbar .dic.green{background:#30d158;color:#fff}
-  .dockbar .dic.gray{background:#8e8e93;color:#fff}
-  /* ---- setup (collapsed, minimal) ---- */
-  details{margin-top:16px}
-  summary{cursor:pointer;list-style:none;text-align:center;font-size:12.5px;color:var(--sub);padding:8px;min-height:36px}
-  summary::-webkit-details-marker{display:none}
-  summary:active{opacity:.6}
-  .setup{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px 16px 12px;font-size:13px;line-height:1.65}
-  .setup ol{margin:0 0 12px 18px;padding:0;color:var(--sub)}
-  .setup ol b{color:var(--text)}
-  .names{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .names div{background:var(--bg);border-radius:10px;padding:7px 10px;font-family:ui-monospace,monospace;font-size:12.5px;font-weight:600}
-  .names div small{display:block;font-family:-apple-system,sans-serif;font-size:10.5px;font-weight:500;color:var(--sub)}
-  .setup .home{margin:12px 0 2px;font-size:12.5px;color:var(--sub);text-align:center}
-  .setup .home b{color:var(--text)}
 </style>
 </head>
 <body>
@@ -146,44 +121,6 @@
     </a>
   </div>
 
-  <div class="dock">
-    <nav class="dockbar" aria-label="設定へのリンク">
-      <a href="App-Prefs:Bluetooth">
-        <span class="dic blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7.5 16.5 17 12 21.5v-19L16.5 7 7 16.5"/></svg></span>
-        Bluetooth
-      </a>
-      <a href="shortcuts://">
-        <span class="dic dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="12" height="12" rx="3.5"/><path d="M15 9h3.5A2.5 2.5 0 0 1 21 11.5v7A2.5 2.5 0 0 1 18.5 21h-7A2.5 2.5 0 0 1 9 18.5V15"/></svg></span>
-        ショートカット
-      </a>
-      <a href="App-Prefs:ACCESSIBILITY">
-        <span class="dic green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.6" r="1.9" fill="currentColor" stroke="none"/><path d="M4.5 9.5c2.5.7 5 1 7.5 1s5-.3 7.5-1M12 10.5v4.2m0 0-2.8 5.3M12 14.7l2.8 5.3"/></svg></span>
-        アクセシビリティ
-      </a>
-      <a href="App-Prefs:">
-        <span class="dic gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg></span>
-        設定
-      </a>
-    </nav>
-
-    <details>
-      <summary>はじめての方はこちら（初回セットアップ）</summary>
-      <div class="setup">
-        <ol>
-          <li>ショートカット アプリ → <b>＋</b></li>
-          <li><b>「ノイズコントロールモードを設定」</b>を追加</li>
-          <li>モードを選び、下の名前で保存 ×4</li>
-        </ol>
-        <div class="names">
-          <div><small>ノイズキャンセリング</small>AirPods NC</div>
-          <div><small>外部音取り込み</small>AirPods 外部音</div>
-          <div><small>適応型</small>AirPods 適応型</div>
-          <div><small>オフ</small>AirPods オフ</div>
-        </div>
-        <p class="home">ホーム画面に置く： <b>共有 →「ホーム画面に追加」</b><br>アイコンの「AirPods」で、ブラウザなしの全画面アプリとして開きます。</p>
-      </div>
-    </details>
-  </div>
 
 </div>
 <script>
