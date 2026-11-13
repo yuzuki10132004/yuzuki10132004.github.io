@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f2f2f7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+<!-- ホーム画面に追加したとき、ブラウザではなく専用アプリとして全画面で開くための指定 -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AirPods">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>AirPods</title>
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#f2f2f7; --card:#ffffff; --well:#e9e9ee; --text:#111116; --sub:#8a8a93; --line:rgba(0,0,0,.06);
+    --blue:#007aff; --green:#30d158;
+    --shadow:0 10px 30px rgba(20,20,40,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#000000; --card:#1c1c1e; --well:#2c2c2e; --text:#f5f5f7; --sub:#86868e; --line:rgba(255,255,255,.07); --shadow:none; }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+  .app{max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 26px) 20px calc(env(safe-area-inset-bottom,0px) + 20px)}
+  /* ---- hero ---- */
+  .hero{text-align:center;padding:6px 0 2px}
+  .buds{width:104px;height:104px;margin:0 auto;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center}
+  .buds svg{width:58px;height:58px;stroke:var(--text)}
+  .hero h1{font-size:27px;font-weight:700;letter-spacing:-.02em;margin:16px 0 0;display:flex;align-items:center;justify-content:center;gap:9px}
+  .hero h1 span{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--sub);background:var(--well);padding:4px 8px;border-radius:999px}
+  .status{margin:12px auto 0;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--sub);background:var(--card);border:1px solid var(--line);padding:6px 12px;border-radius:999px;box-shadow:var(--shadow)}
+  .status .dot{width:7px;height:7px;border-radius:50%;background:#c7c7cc;flex-shrink:0}
+  .status.on .dot{background:var(--green);box-shadow:0 0 0 4px rgba(48,209,88,.18)}
+  .status b{color:var(--text);font-weight:600}
+  /* ---- section label ---- */
+  .sec{font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--sub);margin:28px 2px 10px}
+  /* ---- mode tiles ---- */
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .tile{
+    appearance:none;text-decoration:none;color:var(--text);background:var(--card);border:none;
+    border-radius:26px;min-height:138px;padding:18px 12px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    box-shadow:var(--shadow);cursor:pointer;position:relative;transition:transform .1s ease, background .18s ease, color .18s ease;
+  }
+  .tile:active{transform:scale(.96)}
+  .tile svg{width:34px;height:34px}
+  .tile .label{font-size:15px;font-weight:600;line-height:1.15;text-align:center}
+  .tile .check{position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.28);color:#fff;display:none;place-items:center;font-size:11px;font-weight:800;line-height:1}
+  .tile.active{background:var(--blue);color:#fff}
+  .tile.active .check{display:grid}
+  /* ---- presets ---- */
+  .presets{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .tile.preset{min-height:78px;border-radius:22px;padding:12px 6px 10px;gap:7px}
+  .tile.preset svg{width:24px;height:24px}
+  .tile.preset .label{font-size:13.5px}
+  .tile.preset .check{top:8px;right:8px;width:17px;height:17px;font-size:9px}
+  /* ---- dock ---- */
+  .dock{margin-top:auto;padding-top:30px}
+  .dockbar{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(4,1fr);padding:12px 6px 9px}
+  .dockbar a{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10px;font-weight:500;color:var(--sub);padding:2px 0;border-radius:14px}
+  .dockbar a:active{background:var(--well)}
+  .dockbar .dic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--well);color:var(--text)}
+  .dockbar .dic svg{width:21px;height:21px}
+  .dockbar .dic.blue{background:var(--blue);color:#fff}
+  .dockbar .dic.dark{background:#1c1c1e;color:#fff}
+  @media (prefers-color-scheme: dark){ .dockbar .dic.dark{background:#f5f5f7;color:#111} }
+  .dockbar .dic.green{background:#30d158;color:#fff}
+  .dockbar .dic.gray{background:#8e8e93;color:#fff}
+  /* ---- setup (collapsed, minimal) ---- */
+  details{margin-top:16px}
+  summary{cursor:pointer;list-style:none;text-align:center;font-size:12.5px;color:var(--sub);padding:8px;min-height:36px}
+  summary::-webkit-details-marker{display:none}
+  summary:active{opacity:.6}
+  .setup{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px 16px 12px;font-size:13px;line-height:1.65}
+  .setup ol{margin:0 0 12px 18px;padding:0;color:var(--sub)}
+  .setup ol b{color:var(--text)}
+  .names{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .names div{background:var(--bg);border-radius:10px;padding:7px 10px;font-family:ui-monospace,monospace;font-size:12.5px;font-weight:600}
+  .names div small{display:block;font-family:-apple-system,sans-serif;font-size:10.5px;font-weight:500;color:var(--sub)}
+  .setup .home{margin:12px 0 2px;font-size:12.5px;color:var(--sub);text-align:center}
+  .setup .home b{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="buds" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none" stroke-width="3.4" stroke-linecap="round">
+        <circle cx="23" cy="20" r="10"/>
+        <path d="M27 28v18"/>
+        <circle cx="41" cy="20" r="10"/>
+        <path d="M37 28v18"/>
+      </svg>
+    </div>
+    <h1>AirPods <span>PRO 3</span></h1>
+    <div><span class="status" id="statusBox" aria-live="polite"><span class="dot"></span><span id="statusText">未選択</span></span></div>
+  </div>
+
+  <p class="sec">ノイズコントロール</p>
+  <div class="modes" id="modeGrid">
+    <a class="tile" href="shortcuts://run-shortcut?name=AirPods%20NC" data-mode="ノイズキャンセリング" data-group="mode" aria-label="ノイズキャンセリング">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 10v4"/></svg>
+      <span class="label">ノイズ<br>キャンセリング</span>
+    </a>
+    <a class="tile" href="shortcuts://run-shortcut?name=AirPods%20%E5%A4%96%E9%83%A8%E9%9F%B3" data-mode="外部音取り込み" data-group="mode" aria-label="外部音取り込み">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12c-1.5-1-1.5-4 0-6 1-1.3 3-1 4 .5C11.5 8 12 10 12 12s-.5 4-1.5 5.5c-1 1.5-3 1.8-4 .5-1.5-2-1.5-5 0-6Z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>
+      <span class="label">外部音<br>取り込み</span>
+    </a>
+    <a class="tile" href="shortcuts://run-shortcut?name=AirPods%20%E9%81%A9%E5%BF%9C%E5%9E%8B" data-mode="適応型" data-group="mode" aria-label="適応型">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 3 10 2.5-7 1.5 2H21"/></svg>
+      <span class="label">適応型</span>
+    </a>
+    <a class="tile" href="shortcuts://run-shortcut?name=AirPods%20%E3%82%AA%E3%83%95" data-mode="オフ" data-group="mode" aria-label="オフ">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg>
+      <span class="label">オフ</span>
+    </a>
+  </div>
+
+  <p class="sec">プリセット</p>
+  <div class="presets" id="presetGrid">
+    <a class="tile preset" href="shortcuts://run-shortcut?name=AirPods%20NC" data-mode="集中" data-group="preset" aria-label="プリセット 集中">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" opacity=".55"/><circle cx="12" cy="12" r="10" opacity=".3"/></svg>
+      <span class="label">集中</span>
+    </a>
+    <a class="tile preset" href="shortcuts://run-shortcut?name=AirPods%20%E9%81%A9%E5%BF%9C%E5%9E%8B" data-mode="通勤" data-group="preset" aria-label="プリセット 通勤">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 10h14M9 21l1.5-4M15 21l-1.5-4"/><circle cx="9" cy="13.5" r=".6" fill="currentColor"/><circle cx="15" cy="13.5" r=".6" fill="currentColor"/></svg>
+      <span class="label">通勤</span>
+    </a>
+    <a class="tile preset" href="shortcuts://run-shortcut?name=AirPods%20%E5%A4%96%E9%83%A8%E9%9F%B3" data-mode="家" data-group="preset" aria-label="プリセット 家">
+      <span class="check">✓</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>
+      <span class="label">家</span>
+    </a>
+  </div>
+
+  <div class="dock">
+    <nav class="dockbar" aria-label="設定へのリンク">
+      <a href="App-Prefs:Bluetooth">
+        <span class="dic blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7.5 16.5 17 12 21.5v-19L16.5 7 7 16.5"/></svg></span>
+        Bluetooth
+      </a>
+      <a href="shortcuts://">
+        <span class="dic dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="12" height="12" rx="3.5"/><path d="M15 9h3.5A2.5 2.5 0 0 1 21 11.5v7A2.5 2.5 0 0 1 18.5 21h-7A2.5 2.5 0 0 1 9 18.5V15"/></svg></span>
+        ショートカット
+      </a>
+      <a href="App-Prefs:ACCESSIBILITY">
+        <span class="dic green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.6" r="1.9" fill="currentColor" stroke="none"/><path d="M4.5 9.5c2.5.7 5 1 7.5 1s5-.3 7.5-1M12 10.5v4.2m0 0-2.8 5.3M12 14.7l2.8 5.3"/></svg></span>
+        アクセシビリティ
+      </a>
+      <a href="App-Prefs:">
+        <span class="dic gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg></span>
+        設定
+      </a>
+    </nav>
+
+    <details>
+      <summary>はじめての方はこちら（初回セットアップ）</summary>
+      <div class="setup">
+        <ol>
+          <li>ショートカット アプリ → <b>＋</b></li>
+          <li><b>「ノイズコントロールモードを設定」</b>を追加</li>
+          <li>モードを選び、下の名前で保存 ×4</li>
+        </ol>
+        <div class="names">
+          <div><small>ノイズキャンセリング</small>AirPods NC</div>
+          <div><small>外部音取り込み</small>AirPods 外部音</div>
+          <div><small>適応型</small>AirPods 適応型</div>
+          <div><small>オフ</small>AirPods オフ</div>
+        </div>
+        <p class="home">ホーム画面に置く： <b>共有 →「ホーム画面に追加」</b><br>アイコンの「AirPods」で、ブラウザなしの全画面アプリとして開きます。</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+<script>
+  var box=document.getElementById('statusBox'), text=document.getElementById('statusText');
+  function fmt(d){ return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0'); }
+  function handle(e){
+    var el=e.currentTarget, name=el.getAttribute('data-mode'), href=el.getAttribute('href');
+    document.querySelectorAll('.tile').forEach(function(n){
+      n.classList.toggle('active', n===el || n.getAttribute('href')===href);
+    });
+    box.classList.add('on');
+    text.innerHTML='<b>'+name+'</b> · '+fmt(new Date());
+    if(navigator.vibrate) navigator.vibrate(10);
+  }
+  document.querySelectorAll('.tile').forEach(function(t){ t.addEventListener('click', handle); });
+</script>
+</body>
+</html>
