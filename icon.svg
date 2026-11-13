@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#000000"/>
+  <g fill="#ffffff">
+    <!-- left earbud -->
+    <g transform="rotate(18 178 205)">
+      <ellipse cx="178" cy="168" rx="58" ry="66"/>
+      <rect x="160" y="205" width="36" height="150" rx="18"/>
+    </g>
+    <circle cx="196" cy="150" r="14" fill="#000000" opacity="0.18"/>
+    <!-- right earbud -->
+    <g transform="rotate(-18 334 205)">
+      <ellipse cx="334" cy="168" rx="58" ry="66"/>
+      <rect x="316" y="205" width="36" height="150" rx="18"/>
+    </g>
+    <circle cx="316" cy="150" r="14" fill="#000000" opacity="0.18"/>
+  </g>
+</svg>
